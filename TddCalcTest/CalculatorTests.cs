@@ -9,6 +9,7 @@ namespace TddCalcTest
         {
             _calc = new Calculator();
         }
+
         [Theory]
         [InlineData(1, 2, 3)]
         [InlineData(4, 5, 9)]
