@@ -9,28 +9,48 @@ namespace TddCalcTest
         {
             _calc = new Calculator();
         }
-        [Fact]
-        public void TestSumMethod()
+        [Theory]
+        [InlineData(1, 2, 3)]
+        [InlineData(4, 5, 9)]
+        [InlineData(6, 7, 13)]
+        public void TestSumMethod(int num1,int num2, int expectedResult)
         {
-            Assert.Equal(6, _calc.Sum(4,2));
+            var result = _calc.Sum(num1, num2);
+            
+            Assert.Equal(expectedResult, result);
         }
 
-        [Fact]
-        public void TestMinusMethod()
+        [Theory]
+        [InlineData(2, 1, 1)]
+        [InlineData(4, 5, -1)]
+        [InlineData(8, 2, 6)]
+        public void TestMinusMethod(int num1, int num2, int expectedResult)
         {
-            Assert.Equal(2, _calc.Minus(4, 2));
+            var result = _calc.Minus(num1, num2);
+
+            Assert.Equal(expectedResult, result);
         }
 
-        [Fact]
-        public void TestTimesMethod()
+        [Theory]
+        [InlineData(2, 1, 2)]
+        [InlineData(4, 5, 20)]
+        [InlineData(8, 2, 16)]
+        public void TestTimesMethod(int num1, int num2, int expectedResult)
         {
-            Assert.Equal(8, _calc.Times(4, 2));
+            var result = _calc.Times(num1, num2);
+
+            Assert.Equal(expectedResult, result);
         }
 
-        [Fact]
-        public void TestDivideMethod()
+        [Theory]
+        [InlineData(2, 1, 2)]
+        [InlineData(6, 3, 2)]
+        [InlineData(8, 2, 4)]
+        public void TestDivideMethod(int num1, int num2, int expectedResult)
         {
-            Assert.Equal(2, _calc.Divide(4, 2));
+            var result = _calc.Divide(num1, num2);
+
+            Assert.Equal(expectedResult, result);
         }
 
         [Fact]
@@ -42,7 +62,16 @@ namespace TddCalcTest
         [Fact]
         public void TestLastThreeCalcs()
         {
-            Assert.NotEmpty(_calc.LastThreeCalcs());
+            _calc.Sum(1,1);
+            _calc.Sum(1, 1);
+            _calc.Sum(1, 1);
+            _calc.Sum(1, 1);
+
+            var result = _calc.LastThreeCalcs();
+
+            Assert.NotEmpty(result);
+
+            Assert.Equal(3,result.Count);
         }
     }
 }
