@@ -18,6 +18,8 @@ namespace TddCalc.Services
         public int Sum(int num1, int num2)
         {
             var result = num1 + num2;
+
+            AddHistory($"{DateTime.Now} - {num1} + {num2} = {result}");
             
             return result;
         }
@@ -26,12 +28,16 @@ namespace TddCalc.Services
         {
             var result = num1 - num2;
 
+            AddHistory($"{DateTime.Now} - {num1} - {num2} = {result}");
+
             return result;
         }
 
         public int Times(int num1, int num2)
         {
             var result = num1 * num2;
+
+            AddHistory($"{DateTime.Now} - {num1} * {num2} = {result}");
 
             return result;
         }
@@ -40,12 +46,23 @@ namespace TddCalc.Services
         {
             var result = num1 / num2;
 
+            AddHistory($"{DateTime.Now} - {num1} / {num2} = {result}");
+
             return result;
         }
 
         public List<string> LastThreeCalcs()
         {
-            return new List<string>();
+            List<string> result = _history;
+
+            result.RemoveRange(3, result.Count() - 3);
+
+            return result;
+        }
+
+        private void AddHistory(string history)
+        {
+            _history.Insert(0,history);
         }
     }
 }
